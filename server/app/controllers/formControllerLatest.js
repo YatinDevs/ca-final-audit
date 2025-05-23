@@ -22,10 +22,10 @@ exports.generatePdf = async (req, res) => {
     const options = {
       format: "A4",
       border: {
-        top: "40mm",
-        right: "60mm",
-        bottom: "60mm",
-        left: "20mm",
+        top: "35mm",
+        right: "35mm",
+        bottom: "35mm",
+        left: "35mm",
       },
       type: "pdf",
       timeout: 60000,
