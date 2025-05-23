@@ -4,7 +4,7 @@ const fs = require("fs");
 const Form = require("../models/formModel");
 
 exports.getForm = (req, res) => {
-  res.sendFile(path.join(__dirname, "../views", "form.html"));
+  res.sendFile(path.join(__dirname, "../views", "form3.html"));
 };
 
 exports.previewPdf = async (req, res) => {
@@ -50,34 +50,34 @@ exports.generatePdf = async (req, res) => {
       }
     });
     // Save form data to database
-    const formRecord = await Form.create({
-      firmName: formData.firmName,
-      firmRegNumber: formData.firmRegNumber,
-      reviewStartDate: formData.reviewStartDate,
-      reviewEndDate: formData.reviewEndDate,
-      isMandatory: formData.applyReason?.includes("mandatory"),
-      isVoluntary: formData.applyReason?.includes("voluntary"),
-      isSpecialCase: formData.applyReason?.includes("specialCase"),
-      isNewUnit: formData.applyReason?.includes("newUnit"),
-      isBoardDecision: formData.applyReason?.includes("boardDecision"),
-      otherRegulator: formData.otherRegulator,
-      hasConductedAudit: formData.hasConducted === "yes",
-      reviewerSameCity: formData.reviewerOption?.includes("sameCity"),
-      reviewerOutsideCity: formData.reviewerOption?.includes("outsideCity"),
-      reviewerEither: formData.reviewerOption?.includes("either"),
-      preferredCity: formData.preferredCity,
-      communicationEmail: formData.communicationEmail,
-      certificateAddress: formData.certificateAddress,
-      clientType1: formData.clientType1,
-      clientType2: formData.clientType2,
-      clientType3: formData.clientType3,
-      clientType4: formData.clientType4,
-      clientType5: formData.clientType5,
-      clientType6: formData.clientType6,
-      clientType7: formData.clientType7,
-      otherService: formData.otherService,
-      pdfPath: filePath,
-    });
+    // const formRecord = await Form.create({
+    //   firmName: formData.firmName,
+    //   firmRegNumber: formData.firmRegNumber,
+    //   reviewStartDate: formData.reviewStartDate,
+    //   reviewEndDate: formData.reviewEndDate,
+    //   isMandatory: formData.applyReason?.includes("mandatory"),
+    //   isVoluntary: formData.applyReason?.includes("voluntary"),
+    //   isSpecialCase: formData.applyReason?.includes("specialCase"),
+    //   isNewUnit: formData.applyReason?.includes("newUnit"),
+    //   isBoardDecision: formData.applyReason?.includes("boardDecision"),
+    //   otherRegulator: formData.otherRegulator,
+    //   hasConductedAudit: formData.hasConducted === "yes",
+    //   reviewerSameCity: formData.reviewerOption?.includes("sameCity"),
+    //   reviewerOutsideCity: formData.reviewerOption?.includes("outsideCity"),
+    //   reviewerEither: formData.reviewerOption?.includes("either"),
+    //   preferredCity: formData.preferredCity,
+    //   communicationEmail: formData.communicationEmail,
+    //   certificateAddress: formData.certificateAddress,
+    //   clientType1: formData.clientType1,
+    //   clientType2: formData.clientType2,
+    //   clientType3: formData.clientType3,
+    //   clientType4: formData.clientType4,
+    //   clientType5: formData.clientType5,
+    //   clientType6: formData.clientType6,
+    //   clientType7: formData.clientType7,
+    //   otherService: formData.otherService,
+    //   pdfPath: filePath,
+    // });
 
     // Send PDF to client
     res.setHeader("Content-Type", "application/pdf");
@@ -3120,70 +3120,70 @@ function generatePdfHtml(data) {
                 <tr>
                     <td>(viii)</td>
                     <td>Does the PU organize self-developed programs like group discussions, mock presentation, short reviews by Team Leader etc.?</td>
-                    <td class="text-center">${getDisplayValue26(
-                      data.q7viii
-                    )}</td>
+                    <td class="text-center">${data.q7viii}</td>
                 </tr>
                 <tr>
-                    <td class="text-center">8.</td>
+                    <td style="text-align:center">8.</td>
                     <td>Does the PU have policies and procedures for career advancement of its personnel?</td>
-                    <td class="text-center">${getDisplayValue26(data.q8)}</td>
+                    <td class="text-center">${data.q8}</td>
                 </tr>
                 <tr>
-                    <td class="text-center">9.</td>
+                    <td style="text-align:center">9.</td>
                     <td>Is there a system for evaluating the performances on timely basis with the individual being evaluated?</td>
-                    <td class="text-center">${getDisplayValue26(data.q9)}</td>
+                    <td class="text-center">${data.q9}</td>
                 </tr>
                 <tr>
-                    <td class="text-center">10.</td>
+                    <td style="text-align:center">10.</td>
                     <td>Is there a fast track advancement policy for star performers?</td>
-                    <td class="text-center">${getDisplayValue26(data.q10)}</td>
+                    <td class="text-center">${data.q10}</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="page-break"></div>
 
-        <h2 class="sub-title">PART B (V) - Engagement Performance</h2>
+        <h3 style="text-align:center">PART B (V)</h3>
+        <h4 style="text-align:center">Engagement Performance</h4>
         <table>
-            <thead>
-                <tr>
-                    <th style="width: 10.78%">S.No.</th>
-                    <th style="width: 54.68%">Policies and Procedures</th>
-                    <th style="width: 34.56%">REMARKS/YES/NO/NA</th>
-                </tr>
-            </thead>
+             <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
             <tbody>
                 <tr>
-                    <td>1.(i)</td>
+                    <td style="text-align: center;">1.(i)</td>
                     <td>Does the PU plan for performing engagements in accordance with professional standards and regulatory and legal requirements?</td>
-                    <td class="text-center">${getDisplayValue26(data.q1i)}</td>
+                    <td style="text-align: center;">${data.q1i}</td>
+                    <br><textarea>${data.q1i_remarks}</textarea>
                 </tr>
                 <tr>
-                    <td>(ii)</td>
+                    <td style="text-align: right;">(ii)</td>
                     <td><u>If yes, what does the plan encompass</u>:</td>
-                    <td>${data.q1ii || ""}</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td>a)</td>
+                    <td style="text-align: right;">a)</td>
                     <td>Are the responsibilities assigned to appropriate personnel during the planning phase?</td>
-                    <td class="text-center">${getDisplayValue26(
-                      data.q1iia
-                    )}</td>
+                    <td style="text-align: center;">${data.q1iia}
+                    <br><textarea>${data.q1iia_remarks}</textarea>
+                    </td>
                 </tr>
                 <tr>
-                    <td>b)</td>
+                    <td style="text-align: right;">b)</td>
                     <td>Is the background information on the client and the engagement developed/updated and team briefed accordingly?</td>
-                    <td class="text-center">${getDisplayValue26(
-                      data.q1iib
-                    )}</td>
+                    <td style="text-align: center;">${data.q1iib}
+                    <br><textarea>${data.q1iib_remarks}</textarea>
+                    </td>
                 </tr>
                 <tr>
-                    <td>c)</td>
+                    <td style="text-align: right;">c)</td>
                     <td>Does the firm prepare a planning document mentioning the staffing requirements/the risks/time allocation etc.?</td>
-                    <td class="text-center">${getDisplayValue26(
-                      data.q1iic
-                    )}</td>
+                    <td style="text-align: center;">${data.q1iic}
+                    <br><textarea>${data.q1iic_remarks}</textarea>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -3192,412 +3192,341 @@ function generatePdfHtml(data) {
                 <!-- Page No 26 -->
 
             <table class="page-break">
-                <thead >
-                    <tr>
-                        <th>S.No.</th>
-                        <th>Policies and Procedures</th>
-                        <th class="remarks-col">REMARKS/YES/NO/NA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: center;">d)</td>
-                        <td>Whether checklist of relevant Laws/Rules including those related with Accountancy & audit is shared with the engagement team?</td>
-                        <td>
-                            <p>${getRadioValue("checklist_shared")}</p>
-                            <p>${data.checklist_shared_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">e)</td>
-                        <td>Whether industry briefing about nature, structure & vertical, and important points from previous year audit summary memorandum are provided to team during planning of the engagement?</td>
-                        <td>
-                            <p>${getRadioValue("industry_briefing")}</p>
-                            <p>${data.industry_briefing_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">f)</td>
-                        <td>Any other (pls. specify) ${
-                          data.other_specify || ""
-                        }</td>
-                        <td>
-                            <p>${getRadioValue("other")}</p>
-                            <p>${data.other_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">2.</td>
-                        <td>Does the PU conduct pre-assignment meeting with the clients, liaison office etc. to understand the preparedness of the client to start the professional functions.</td>
-                        <td>
-                            <p>${getRadioValue("pre_assignment_meeting")}</p>
-                            <p>${data.pre_assignment_meeting_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">3.</td>
-                        <td>Does the PU prepare and document Audit Summary Memorandum to provide the history of the planned risks, the audit procedures which mitigated the risk, conclusions on controls etc.?</td>
-                        <td>
-                            <p>${getRadioValue("audit_summary")}</p>
-                            <p>${data.audit_summary_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">4.</td>
-                        <td>Does the PU prepare standardized forms, checklists and questionnaires used in performance engagements?</td>
-                        <td>
-                            <p>${getRadioValue("standardized_forms")}</p>
-                            <p>${data.standardized_forms_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">5.</td>
-                        <td>Does the team leader/Engagement Partner keep a track of the audit findings, other significant issues at various stages of the engagement (including disposal/discussion with the TCWG)?</td>
-                        <td>
-                            <p>${getRadioValue("track_findings")}</p>
-                            <p>${data.track_findings_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">6.</td>
-                        <td>How does the PU ensure that</td>
-                        <td>
-                            <p>${data.general_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">i)</td>
-                        <td>the qualified team members review the work performed by other team members on a timely basis?</td>
-                        <td>
-                            <p>${getRadioValue("team_review")}</p>
-                            <p>${data.team_review_remarks || ""}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: right;">d)</td>
+            <td>Whether checklist of relevant Laws/Rules including those related with Accountancy & audit is shared with the engagement team?</td>
+            <td>${data.q1a || ""}
+            <br>
+            <textarea>${data.q1a_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: right">e)</td>
+            <td>Whether industry briefing about nature, structure & vertical, and important points from previous year audit summary memorandum are provided to team during planning of the engagement?</td>
+            <td>${data.q1b || ""}
+            <br>
+            <textarea>${data.q1b_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: right">f)</td>
+            <td>Any other (pls. specify)</td>
+            <td>${data.q1c || ""}
+            <br>
+            <textarea>${data.q1c_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">2.</td>
+            <td>Does the PU conduct pre-assignment meeting with the clients, liaison office etc. to understand the preparedness of the client to start the professional functions.</td>
+            <td>${data.q2 || ""}
+            <br>
+            <textarea>${data.q2_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">3.</td>
+            <td>Does the PU prepare and document Audit Summary Memorandum to provide the history of the planned risks, the audit procedures which mitigated the risk, conclusions on controls etc.?</td>
+            <td>${data.q3 || ""}
+            <br>
+            <textarea>${data.q3_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">4.</td>
+            <td>Does the PU prepare standardized forms, checklists and questionnaires used in performance engagements?</td>
+            <td class="width-34 border-right border-bottom">${data.q4 || ""}
+            <br>
+            <textarea>${data.q4_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">5.</td>
+            <td>Does the team leader/Engagement Partner keep a track of the audit findings, other significant issues at various stages of the engagement (including disposal/discussion with the TCWG)?</td>
+            <td>${data.q5 || ""}
+            <br>
+            <textarea>${data.q5_remarks || ""}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">6.</td>
+            <td>How does the PU ensure that</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">(i)</td>
+            <td>the qualified team members review the work performed by other team members on a timely basis?</td>
+            <td>${data.q6i || ""}</td>
+          </tr>
+        </tbody>
+      </table>
 
         <!-- Page No 27 -->
             <table class="page-break">
-                <tbody>
-                    <tr>
-                        <td style="width: 6%; text-align: center;"><strong>S.No.</strong></td>
-                        <td style="width: 51.4093%;"><strong>Policies and Procedures</strong></td>
-                        <td style="width: 34.56%;"><strong>REMARKS/YES/NO/NA</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(ii)</td>
-                        <td style="width: 51.4093%;">
-                            Is there any document maintained by the PU for the supervision of work performed?
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("supervision_doc")}</p>
-                            <p>${data.supervision_doc_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: center;">7.</td>
-                        <td style="width: 51.4093%;">
-                            What is the mode for maintaining the working papers? Electronic mode or in physical form or in a hybrid manner?
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${data.working_paper_mode || "Not specified"}</p>
-                            <p>${data.working_paper_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: center;">8.</td>
-                        <td style="width: 51.4093%;">
-                            What tool does the PU use for maintaining the working in electronic form?
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${data.electronic_tool || "Not specified"}</p>
-                            <p>${data.electronic_tool_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: center;">9.</td>
-                        <td style="width: 51.4093%;">
-                            <strong>Which of the following procedures does the PU have in place to maintain confidentiality, safe custody, integrity, accessibility and retrievability of engagement documentation:</strong>
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${
-                              data.documentation_procedures_remarks || ""
-                            }</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(i)</td>
-                        <td style="width: 51.4093%;">
-                            Documenting when and by whom the engagement documentation was prepared and reviewed
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("doc_prep_review")}</p>
-                            <p>${data.doc_prep_review_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(ii)</td>
-                        <td style="width: 51.4093%;">
-                            Protecting integrity of information at all stages of engagement especially when the information was shared through electronic means
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("info_integrity")}</p>
-                            <p>${data.info_integrity_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(iii)</td>
-                        <td style="width: 51.4093%;">
-                            Preventing unauthorized changes in engagement documentation
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("prevent_unauthorized")}</p>
-                            <p>${data.prevent_unauthorized_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(iv)</td>
-                        <td style="width: 51.4093%;">
-                            Allowing access to engagement documentation by engagement team and other authorized parties only
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("access_control")}</p>
-                            <p>${data.access_control_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(v)</td>
-                        <td style="width: 51.4093%;">
-                            Enabling confidential storage of hardcopies of engagement documentation
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("hardcopy_storage")}</p>
-                            <p>${data.hardcopy_storage_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6%; text-align: right;">(vi)</td>
-                        <td style="width: 51.4093%;">
-                            Requiring use of passwords by engagement team members and data encryption to restrict access to electronic engagement documentation to authorized users
-                        </td>
-                        <td style="width: 34.56%;">
-                            <p>${getRadioValue("password_encryption")}</p>
-                            <p>${data.password_encryption_remarks || ""}</p>
-                        </td>
-                    </tr>
+                <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
+                    <tbody>
+                     <tr>
+      <td style="text-align: right;">(ii)</td>
+      <td>Is there any document maintained by the PU for the supervision of work performed?</td>
+      <td>
+        ${data.supervision_doc || ""}
+        <br><textarea>${data.supervision_doc_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">7.</td>
+      <td>What is the mode for maintaining the working papers? Electronic mode or in physical form or in a hybrid manner?</td>
+      <td>
+        ${data.working_paper_mode || ""}
+        <br><textarea>${data.working_paper_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">8.</td>
+      <td>What tool does the PU use for maintaining the working in electronic form?</td>
+      <td>
+        <textarea>${data.electronic_tool_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">9.</td>
+      <td><strong>Which of the following procedures does the PU have in place to maintain confidentiality, safe custody, integrity, accessibility and retrievability of engagement documentation:</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(i)</td>
+      <td>Documenting when and by whom the engagement documentation was prepared and reviewed</td>
+      <td>
+        ${data.doc_prep_review || ""}
+        <br><textarea>${data.doc_prep_review_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(ii)</td>
+      <td>Protecting integrity of information at all stages of engagement especially when the information was shared through electronic means</td>
+      <td>
+        ${data.info_integrity || ""}
+        <br><textarea>${data.info_integrity_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(iii)</td>
+      <td>Preventing unauthorized changes in engagement documentation</td>
+      <td>
+        ${data.prevent_unauthorized || ""}
+        <br><textarea>${data.prevent_unauthorized_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(iv)</td>
+      <td>Allowing access to engagement documentation by engagement team and other authorized parties only</td>
+      <td>
+        ${data.access_control || ""}
+        <br><textarea>${data.access_control_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(v)</td>
+      <td>Enabling confidential storage of hardcopies of engagement documentation</td>
+      <td>
+        ${data.hardcopy_storage || ""}
+        <br><textarea>${data.hardcopy_storage_remarks || ""}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: right;">(vi)</td>
+      <td>Requiring use of passwords by engagement team members and data encryption to restrict access to electronic engagement documentation to authorized users</td>
+      <td>
+        ${data.password_encryption || ""}
+        <br><textarea>${data.password_encryption_remarks || ""}</textarea>
+      </td>
+    </tr>
                 </tbody>
             </table>
 
             <!-- Page No 28 -->
             <table class="page-break">
-                <tbody>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: center;"><strong>S.No</strong></td>
-                        <td style="width: 55.3745%;"><strong>Policies and Procedures</strong></td>
-                        <td style="width: 36.7729%;"><strong>REMARKS/YES/NO/NA</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(vii)</td>
-                        <td style="width: 55.3745%;">
-                            Maintaining appropriate backup routines at appropriate stages during the engagement
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${getRadioValue("backup_routines")}</p>
-                            <p>${data.backup_routines_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(viii)</td>
-                        <td style="width: 55.3745%;">
-                            Enabling the scanned copies to be retrieved and printed by authorized personnel
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${getRadioValue("scanned_copies")}</p>
-                            <p>${data.scanned_copies_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: center;">10.</td>
-                        <td style="width: 55.3745%;">
-                            <strong>Which procedures does the PU follow to ensure that it maintains engagement documentation for a period of time sufficient to meet the needs of the firm, professional standards, laws and regulations:</strong>
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${data.document_retention_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(i)</td>
-                        <td style="width: 55.3745%;">
-                            For how many years the PU maintains engagement documentation?
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${
-                              data.retention_years || "Not specified"
-                            } years</p>
-                            <p>${data.retention_years_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(ii)</td>
-                        <td style="width: 55.3745%;">
-                            How does the PU enable retrieval of, and access to engagement documentation during the retention period in case of electronic documentation as the underlying technology may be upgraded or changed overtime
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${data.retrieval_method || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(iii)</td>
-                        <td style="width: 55.3745%;">
-                            Does the PU ensure that, record of changes made to engagement documentation after assembly of files has been completed?
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${getRadioValue("change_records")}</p>
-                            <p>${data.change_records_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: right;">(iv)</td>
-                        <td style="width: 55.3745%;">
-                            Does the PU ensure that only authorized external parties access and review specific engagement documentation for QC or other purposes?
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${getRadioValue("external_access")}</p>
-                            <p>${data.external_access_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 6.1227%; text-align: center;">11.</td>
-                        <td style="width: 55.3745%;">
-                            Does the PU have the policy for documenting the issue requiring consultation, including any decisions that were taken, the basis for those decisions and how they were implemented?
-                        </td>
-                        <td style="width: 36.7729%;">
-                            <p>${getRadioValue("consultation_policy")}</p>
-                            <p>${data.consultation_policy_remarks || ""}</p>
-                        </td>
-                    </tr>
-                </tbody>
+               <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: right;">(vii)</td>
+          <td>Maintaining appropriate backup routines at appropriate stages during the engagement</td>
+          <td>
+            ${data.backup_routines || ""}
+            <br><textarea>${data.backup_routines_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: right;">(viii)</td>
+          <td>Enabling the scanned copies to be retrieved and printed by authorized personnel</td>
+          <td>
+            ${data.scanned_copies || ""}
+            <br><textarea>${data.scanned_copies_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">10.</td>
+          <td><strong>Which procedures does the PU follow to ensure that it maintains engagement documentation for a period of time sufficient to meet the needs of the firm, professional standards, laws and regulations:</strong></td>
+          <td>
+            <textarea>${data.document_retention_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: right;">(i)</td>
+          <td>For how many years the PU maintains engagement documentation?</td>
+          <td>
+            ${data.retention_years || ""}
+            <br><textarea>${data.retention_years_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: right;">(ii)</td>
+          <td>How does the PU enable retrieval of, and access to engagement documentation during the retention period in case of electronic documentation as the underlying technology may be upgraded or changed overtime</td>
+          <td>
+            <textarea>${data.retrieval_method || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: right;">(iii)</td>
+          <td>Does the PU ensure that, record of changes made to engagement documentation after assembly of files has been completed?</td>
+          <td>
+            ${data.change_records || ""}
+            <br><textarea>${data.change_records_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: right;">(iv)</td>
+          <td>Does the PU ensure that only authorized external parties access and review specific engagement documentation for QC or other purposes?</td>
+          <td>
+            ${data.external_access || ""}
+            <br><textarea>${data.external_access_remarks || ""}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">11.</td>
+          <td>Does the PU have the policy for documenting the issue requiring consultation, including any decisions that were taken, the basis for those decisions and how they were implemented?</td>
+          <td>
+            ${data.consultation_policy || ""}
+            <br><textarea>${data.consultation_policy_remarks || ""}</textarea>
+          </td>
+        </tr>
+      </tbody>
             </table>
 
             <!-- Page No 29 -->
 
          <table class="page-break">
-                <tbody>
+                 <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
+                    <tbody>
                     <tr>
-                        <td style="width: 7.1382%; text-align: center;"><strong>S.No.</strong></td>
-                        <td style="width: 56.8145%;"><strong>Policies and Procedures</strong></td>
-                        <td style="width: 34.4827%;"><strong>REMARKS/YES/NO/NA</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">12.</td>
-                        <td style="width: 56.8145%;">
-                            Who resolves with the differences of professional judgement among members of the engagement team?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.judgement_resolver || "Not specified"}</p>
-                            <p>${data.judgement_resolver_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">13.</td>
-                        <td style="width: 56.8145%;">
-                            Is there a formally designed an escalation matrix, in case the differences are not resolved at certain level?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${getRadioValue("escalation_matrix")}</p>
-                            <p>${data.escalation_matrix_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">14.</td>
-                        <td style="width: 56.8145%;">
-                            Are the conclusions reached properly documented?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${getRadioValue("conclusions_documented")}</p>
-                            <p>${data.conclusions_documented_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">15.</td>
-                        <td style="width: 56.8145%;">
-                            What happens if the members of the team continue to disagree with the resolution?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.disagreement_procedure || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">16.</td>
-                        <td style="width: 56.8145%;">
-                            When does the PU release the report in cases where differences in opinion exist?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.report_release_policy || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">17.</td>
-                        <td style="width: 56.8145%;">
-                            Does the PU have a policy of having engagement quality review conducted for all audit of financial statements of listed entities?
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${getRadioValue("quality_review_policy")}</p>
-                            <p>${data.quality_review_policy_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: center;">18.</td>
-                        <td style="width: 56.8145%;">
-                            <strong>Which of the criteria does the PU have in place for carrying out the engagement QC review for its engagements (other than covered above):</strong>
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.qc_criteria_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: right;">(i)</td>
-                        <td style="width: 56.8145%;">
-                            Certain class of engagements (mention the class)
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.engagement_class || "Not specified"}</p>
-                            <p>${data.engagement_class_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: right;">(ii)</td>
-                        <td style="width: 56.8145%;">
-                            Risks in an engagement (mention type/level)
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.risk_type || "Not specified"}</p>
-                            <p>${data.risk_type_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: right;">(iii)</td>
-                        <td style="width: 56.8145%;">
-                            Unusual circumstances (mention the particular circumstance)
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${
-                              data.unusual_circumstances || "Not specified"
-                            }</p>
-                            <p>${data.unusual_circumstances_remarks || ""}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 7.1382%; text-align: right;">(iv)</td>
-                        <td style="width: 56.8145%;">
-                            Required by law or regulation (quote the law/regulation)
-                        </td>
-                        <td style="width: 34.4827%;">
-                            <p>${data.law_regulation || "Not specified"}</p>
-                            <p>${data.law_regulation_remarks || ""}</p>
-                        </td>
-                    </tr>
+    <td style="text-align: center;">12.</td>
+    <td>Who resolves with the differences of professional judgement among members of the engagement team?</td>
+    <td>
+        ${data.judgement_resolver || ""}
+        <br><textarea>${data.judgement_resolver_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">13.</td>
+    <td>Is there a formally designed an escalation matrix, in case the differences are not resolved at certain level?</td>
+    <td>
+        ${data.escalation_matrix || ""}
+        <br><textarea>${data.escalation_matrix_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">14.</td>
+    <td>Are the conclusions reached properly documented?</td>
+    <td>
+        ${data.conclusions_documented || ""}
+        <br><textarea>${data.conclusions_documented_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">15.</td>
+    <td>What happens if the members of the team continue to disagree with the resolution?</td>
+    <td>
+        <textarea>${data.disagreement_procedure || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">16.</td>
+    <td>When does the PU release the report in cases where differences in opinion exist?</td>
+    <td>
+        <textarea>${data.report_release_policy || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">17.</td>
+    <td>Does the PU have a policy of having engagement quality review conducted for all audit of financial statements of listed entities?</td>
+    <td>
+        ${data.quality_review_policy || ""}
+        <br><textarea>${data.quality_review_policy_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">18.</td>
+    <td><strong>Which of the criteria does the PU have in place for carrying out the engagement QC review for its engagements (other than covered above):</strong></td>
+    <td></td>
+</tr>
+<tr>
+    <td style="text-align: right;">(i)</td>
+    <td>Certain class of engagements (mention the class)</td>
+    <td>
+        ${data.engagement_class || ""}
+        <br><textarea>${data.engagement_class_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(ii)</td>
+    <td>Risks in an engagement (mention type/level)</td>
+    <td>
+        ${data.risk_type || ""}
+        <br><textarea>${data.risk_type_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iii)</td>
+    <td>Unusual circumstances (mention the particular circumstance)</td>
+    <td>
+        ${data.unusual_circumstances || ""}
+        <br><textarea>${data.unusual_circumstances_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iv)</td>
+    <td>Required by law or regulation (quote the law/regulation)</td>
+    <td>
+        ${data.law_regulation || ""}
+        <br><textarea>${data.law_regulation_remarks || ""}</textarea>
+    </td>
+</tr>
                 </tbody>
             </table>
 
@@ -3605,303 +3534,348 @@ function generatePdfHtml(data) {
                             
 
             <table class="page-break">
-            <tbody>
+            <thead>
+            <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr>
+        </thead>
+        <tbody>
                 <tr>
-                    <td style="width: 7.2423%;"><strong>S.No</strong></td>
-                    <td style="width: 57.3345%;"><strong>Policies and Procedures</strong></td>
-                    <td style="width: 35.3417%;"><strong>REMARKS/YES/NO/NA</strong></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(v)</td>
-                    <td>Any other like size (pls. elaborate)</td>
-                    <td class="remarks-col">${data.other_like_size || ""}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">19.</td>
-                    <td><strong>Which of the following procedures are followed by the PU for addressing the nature, timing, extent, and documentation of engagement QC review:</strong></td>
-                    <td class="remarks-col"></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(i)</td>
-                    <td>Discuss significant accounting, auditing and financial reporting issues with the engagement partner</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_1
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(ii)</td>
-                    <td>Discuss with the EP the engagement team's identification and audit of high risk assertions and transactions</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_2
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(iii)</td>
-                    <td>Confirm with the EP that there are no significant unresolved issues</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_3
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(iv)</td>
-                    <td>Read the financial statements and the report and consider whether the report is appropriate</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_4
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(v)</td>
-                    <td>The procedures required by the firm's policies on engagement QC review have been performed</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_5
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(vi)</td>
-                    <td>The engagement QC review has been completed before the report is released</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_6
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(vii)</td>
-                    <td>Resolving conflict between the engagement partner and the engagement QC reviewer regarding significant matters</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.procedure_7
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-center">20.</td>
-                    <td><strong>Which of the following are the PU's established criteria for eligibility of 'Engagement Quality Assurance Reviewers':</strong></td>
-                    <td class="remarks-col"></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(i)</td>
-                    <td>Selected by QC partner or the Managing Partner</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.criteria_1
-                    )}</span></td>
-                </tr>
+    <td style="text-align: right;">(v)</td>
+    <td>Any other like size (pls. elaborate)</td>
+    <td>
+        <textarea>${data.other_like_size_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">19.</td>
+    <td><strong>Which of the following procedures are followed by the PU for addressing the nature, timing, extent, and documentation of engagement QC review:</strong></td>
+    <td>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(i)</td>
+    <td>Discuss significant accounting, auditing and financial reporting issues with the engagement partner</td>
+    <td>
+        ${data.procedure_1 || ""}
+        <br><textarea>${data.procedure_1_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(ii)</td>
+    <td>Discuss with the EP the engagement team's identification and audit of high risk assertions and transactions</td>
+    <td>
+        ${data.procedure_2 || ""}
+        <br><textarea>${data.procedure_2_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iii)</td>
+    <td>Confirm with the EP that there are no significant unresolved issues</td>
+    <td>
+        ${data.procedure_3 || ""}
+        <br><textarea>${data.procedure_3_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iv)</td>
+    <td>Read the financial statements and the report and consider whether the report is appropriate</td>
+    <td>
+        ${data.procedure_4 || ""}
+        <br><textarea>${data.procedure_4_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(v)</td>
+    <td>The procedures required by the firm's policies on engagement QC review have been performed</td>
+    <td>
+        ${data.procedure_5 || ""}
+        <br><textarea>${data.procedure_5_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(vi)</td>
+    <td>The engagement QC review has been completed before the report is released</td>
+    <td>
+        ${data.procedure_6 || ""}
+        <br><textarea>${data.procedure_6_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(vii)</td>
+    <td>Resolving conflict between the engagement partner and the engagement QC reviewer regarding significant matters</td>
+    <td>
+        ${data.procedure_7 || ""}
+        <br><textarea>${data.procedure_7_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">20.</td>
+    <td><strong>Which of the following are the PU's established criteria for eligibility of 'Engagement Quality Assurance Reviewers':</strong></td>
+    <td>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(i)</td>
+    <td>Selected by QC partner or the Managing Partner</td>
+    <td>
+        ${data.criteria_1 || ""}
+        <br><textarea>${data.criteria_1_remarks || ""}</textarea>
+    </td>
+</tr>
             </tbody>
         </table>
 
         <!-- Page No 31 -->
         <!-- First Table -->
         <table class="page-break">
-            <tbody>
+            <thead>
+                 <tr>
+          <th style="width: 10%; text-align: center;">S.No.</th>
+          <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+          <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+        </tr></thead>
                 <tr>
-                    <td style="width: 10.076%;"><strong>S.No.</strong></td>
-                    <td style="width: 47.5629%;"><strong>Policies and Procedures</strong></td>
-                    <td style="width: 34.56%;"><strong>REMARKS/YES/NO/NA</strong></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(ii)</td>
-                    <td>Has technical expertise and experience</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.technical_expertise
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(iii)</td>
-                    <td>Carries out the responsibilities with objectivity and due professional care without regard to relative positions</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.objectivity
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(iv)</td>
-                    <td>Meets the independence requirements relating to engagement reviewed</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.independence
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(v)</td>
-                    <td>Does not participate in the performance of the engagement except when consulted by the engagement partner</td>
-                    <td class="remarks-col"><span class="checkbox">${getDisplayValue(
-                      data.participation
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td class="text-right">(vi)</td>
-                    <td>Any other (Pls. specify)</td>
-                    <td class="remarks-col">${data.other_specify || ""}</td>
-                </tr>
+    <td style="text-align: right;">(ii)</td>
+    <td>Has technical expertise and experience</td>
+    <td>
+        ${data.technical_expertise || ""}
+        <br><textarea>${data.technical_expertise_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iii)</td>
+    <td>Carries out the responsibilities with objectivity and due professional care without regard to relative positions</td>
+    <td>
+        ${data.objectivity || ""}
+        <br><textarea>${data.objectivity_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(iv)</td>
+    <td>Meets the independence requirements relating to engagement reviewed</td>
+    <td>
+        ${data.independence || ""}
+        <br><textarea>${data.independence_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(v)</td>
+    <td>Does not participate in the performance of the engagement except when consulted by the engagement partner</td>
+    <td>
+        ${data.participation || ""}
+        <br><textarea>${data.participation_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: right;">(vi)</td>
+    <td>Any other (Pls. specify)</td>
+    <td>
+        <textarea>${data.other_specify || ""}</textarea>
+    </td>
+</tr>
             </tbody>
         </table>
 
         <!-- Part B (VI) Monitoring Section -->
-        <div class="section-title text-center">PART B (VI) Monitoring</div>
+        <h3 style="text-align: center;">PART B (VI)</h3>
+        <h4 style="text-align: center;">Monitoring</h4>
 
         <!-- Second Table -->
         <table class="monitoring-table">
             <thead>
                 <tr>
-                    <td style="width: 9.0554%;"><strong>S.No.</strong></td>
-                    <td style="width: 50.1788%;"><strong>Policies and Procedures</strong></td>
-                    <td style="width: 40.6833%;"><strong>Remarks/Yes/No/Na</strong></td>
+                    <th style="width: 10%;">S.No.</td>
+                    <th style="width: 60%;">Policies and Procedures</td>
+                    <th style="width: 30%;">Remarks/Yes/No/Na</td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>1.(i)</td>
-                    <td>Does the PU have Policies and Procedures to confirm on the adequacy and relevance of Quality Control procedures adopted?</td>
-                    <td><span class="checkbox">${getDisplayValue(
-                      data.qc_procedures
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td>1.(ii)</td>
-                    <td>If yes, what document is in place to establish the procedure</td>
-                    <td>${data.qc_document || ""}</td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Who is responsible to evaluate the Quality and Control policies and procedures to ensure the relevance, adequacy, effectiveness and appropriateness with current trends?</td>
-                    <td>${data.responsible_person || ""}</td>
-                </tr>
-                <tr>
-                    <td>3.</td>
-                    <td>How frequently are the processes and the procedures related to QC revised?</td>
-                    <td>${data.revision_frequency || ""}</td>
-                </tr>
-                <tr>
-                    <td>4.</td>
-                    <td>When was the last revision to the Quality Control policies and procedures carried out?</td>
-                    <td>${formatDate(data.last_revision_date)}</td>
-                </tr>
-                <tr>
-                    <td>5.(i)</td>
-                    <td>Did the PU follow ongoing consideration and evaluation system of quality controls?</td>
-                    <td><span class="checkbox">${getDisplayValue(
-                      data.ongoing_evaluation
-                    )}</span></td>
-                </tr>
-                <tr>
-                    <td>5.(ii)</td>
-                    <td>If yes, what document is in place to establish the same</td>
-                    <td>${data.evaluation_document || ""}</td>
-                </tr>
+    <td style="text-align: center;">1.(i)</td>
+    <td>Does the PU have Policies and Procedures to confirm on the adequacy and relevance of Quality Control procedures adopted?</td>
+    <td>
+        ${data.qc_procedures || ""}
+        <br><textarea>${data.qc_procedures_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">1.(ii)</td>
+    <td>If yes, what document is in place to establish the procedure</td>
+    <td>
+        ${data.qc_document || ""}
+        <br><textarea>${data.qc_document_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">2.</td>
+    <td>Who is responsible to evaluate the Quality and Control policies and procedures to ensure the relevance, adequacy, effectiveness and appropriateness with current trends?</td>
+    <td>
+        ${data.responsible_person || ""}
+        <br><textarea>${data.responsible_person_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">3.</td>
+    <td>How frequently are the processes and the procedures related to QC revised?</td>
+    <td>
+        ${data.revision_frequency || ""}
+        <br><textarea>${data.revision_frequency_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">4.</td>
+    <td>When was the last revision to the Quality Control policies and procedures carried out?</td>
+    <td>
+        ${data.last_revision_date || ""}
+        <br><textarea>${data.last_revision_date_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">5.(i)</td>
+    <td>Did the PU follow ongoing consideration and evaluation system of quality controls?</td>
+    <td>
+        ${data.ongoing_evaluation || ""}
+        <br><textarea>${data.ongoing_evaluation_remarks || ""}</textarea>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;">5.(ii)</td>
+    <td>If yes, what document is in place to establish the same</td>
+    <td>
+        ${data.evaluation_document || ""}
+        <br><textarea>${data.evaluation_document_remarks || ""}</textarea>
+    </td>
+</tr>
             </tbody>
         </table>
 
         <!-- Page No 32 -->
-
-        <style>
-            body {
-                font-family: "Arial Narrow", sans-serif;
-                font-size: 15px;
-                line-height: 13.5pt;
-                margin: 0;
-                padding: 20px;
-            }
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                margin: 10px 0;
-            }
-            table, th, td {
-                border: 1px solid black;
-            }
-            th, td {
-                padding: 5px;
-                vertical-align: top;
-            }
-            .text-center {
-                text-align: center;
-            }
-            .dotted-field {
-                border-bottom: 1px dotted black;
-                display: inline-block;
-                min-width: 100px;
-            }
-            .signature-line {
-                margin-top: 50px;
-                border-top: 1px solid black;
-                width: 200px;
-            }
-        </style>
-
         <table class="page-break">
-            <tbody>
-                <tr>
-                    <td style="width: 2.5591%;"></td>
-                    <td style="width: 10.2362%; border: 1pt solid windowtext; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">S.No</td>
-                    <td style="width: 39.3722%; border-top: 1pt solid windowtext; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-image: initial; border-left: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">Policies and Procedures</td>
-                    <td style="width: 14.7911%; border-top: 1pt solid windowtext; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-image: initial; border-left: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;"></td>
-                    <td style="width: 33.0435%; border-top: 1pt solid windowtext; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-image: initial; border-left: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">Remarks/Yes/No/Na</td>
-                </tr>
-                <tr>
-                    <td style="border: none; padding: 0cm; width: 2.5591%;"></td>
-                    <td style="width: 10.2362%; border: 1pt solid windowtext; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                        <p>6.</p>
-                    </td>
-                    <td colspan="2" style="width: 54.1612%; border-top: 1pt solid windowtext; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-image: initial; border-left: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                        <p><strong>Which of the following monitoring procedure, the PU has in place for QC:</strong></p>
-                    </td>
-                    <td style="width: 33.0435%; border-top: 1pt solid windowtext; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-image: initial; border-left: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                        <p>&nbsp;</p>
-                    </td>
-                </tr>
-                ${[1, 2, 3, 4, 5, 6, 7, 8, 9]
-                  .map((i) => {
-                    const key = `qc_monitoring_${
-                      i === 9 ? "ix" : "i".repeat(i)
-                    }`;
-                    const label = [
-                      "Designated partner/(s) for performing annual inspection",
-                      "Deciding how long to retain detailed inspection documentation",
-                      "Reviewing correspondence regarding consultation on independence, integrity and objectivity matters and acceptance and continuance decisions",
-                      "Preparing summary inspection report for the partner and sets forth any recommended changes that should be made to the firm's policies and procedures",
-                      "Reviewing and evaluating Firm practice aids, such as audit programs, forms, checklists and considering that they are up to date relevant",
-                      "Reviewing summary of CPED records of firms professional personnel",
-                      "Reviewing other administrative and personnel records pertaining to QC elements",
-                      "Soliciting information on the effectiveness of training programs from the Firm's personnel",
-                      `Any other (Pls. elaborate) ${
-                        i === 9 ? data.qc_monitoring_other_details || "" : ""
-                      }`,
-                    ][i - 1];
-
-                    return `
-                  <tr>
-                      <td style="border: none; padding: 0cm; width: 2.5591%;"></td>
-                      <td style="width: 10.2362%; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                          <p style="text-align:center;">(${
-                            i === 9 ? "ix" : "i".repeat(i)
-                          })</p>
-                      </td>
-                      <td colspan="2" style="width: 54.1612%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                          <p>${label}</p>
-                      </td>
-                      <td style="width: 33.0435%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0cm 5.4pt; height: 1pt; vertical-align: top;">
-                          <p>${data[key] || ""}</p>
-                      </td>
-                  </tr>`;
-                  })
-                  .join("")}
-                <tr>
-                    <td colspan="3" style="width: 52.1674%; border: none; padding: 0cm 5.4pt; vertical-align: top;">
-                        <p>Signature</p>
-                        <p>${data.signature || ""}</p>
-                    </td>
-                    <td style="border: none; padding: 0cm; width: 47.6357%;" colspan="2"></td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="width: 52.1674%; border: none; padding: 0cm 5.4pt; vertical-align: top;">
-                        <p>Name of Proprietor/Partner/ individual Practicing in own name:</p>
-                        <p>${data.signatory_name || ""}</p>
-                    </td>
-                    <td style="border: none; padding: 0cm; width: 47.6357%;" colspan="2"></td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="width: 52.1674%; border: none; padding: 0cm 5.4pt; vertical-align: top;">
-                        <p>Membership No. of the Signatory</p>
-                        <p>${data.membership_number || ""}</p>
-                    </td>
-                    <td style="border: none; padding: 0cm; width: 47.6357%;" colspan="2"></td>
-                </tr>
-            </tbody>
+            <thead>
+    <tr>
+        <th style="width: 10%; text-align: center;">S.No.</th>
+        <th style="width: 60%; text-align: center;">Policies and Procedures</th>
+        <th style="width: 30%; text-align: center;">Remarks/Yes/No/Na</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td style="text-align: center;">6.</td>
+        <td><strong>Which of the following monitoring procedure, the PU has in place for QC:</strong></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(i)</td>
+        <td>Designated partner/(s) for performing annual inspection</td>
+        <td>
+            ${data.qc_monitoring_i || ""}
+            <br>
+            <textarea>${data.qc_monitoring_i_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(ii)</td>
+        <td>Deciding how long to retain detailed inspection documentation</td>
+        <td>
+            ${data.qc_monitoring_ii || ""}
+            <br>
+            <textarea>${data.qc_monitoring_ii_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(iii)</td>
+        <td>Reviewing correspondence regarding consultation on independence, integrity and objectivity matters and acceptance and continuance decisions</td>
+        <td>
+            ${data.qc_monitoring_iii || ""}
+            <br>
+            <textarea>${data.qc_monitoring_iii_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(iv)</td>
+        <td>Preparing summary inspection report for the partner and sets forth any recommended changes that should be made to the firm's policies and procedures</td>
+        <td>
+            ${data.qc_monitoring_iv || ""}
+            <br>
+            <textarea>${data.qc_monitoring_iv_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(v)</td>
+        <td>Reviewing and evaluating Firm practice aids, such as audit programs, forms, checklists and considering that they are up to date relevant</td>
+        <td>
+            ${data.qc_monitoring_v || ""}
+            <br>
+            <textarea>${data.qc_monitoring_v_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(vi)</td>
+        <td>Reviewing summary of CPED records of firms professional personnel</td>
+        <td>
+            ${data.qc_monitoring_vi || ""}
+            <br>
+            <textarea>${data.qc_monitoring_vi_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(vii)</td>
+        <td>Reviewing other administrative and personnel records pertaining to QC elements</td>
+        <td>
+            ${data.qc_monitoring_vii || ""}
+            <br>
+            <textarea>${data.qc_monitoring_vii_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(viii)</td>
+        <td>Soliciting information on the effectiveness of training programs from the Firm's personnel</td>
+        <td>
+            ${data.qc_monitoring_viii || ""}
+            <br>
+            <textarea>${data.qc_monitoring_viii_remarks || ""}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">(ix)</td>
+        <td>
+            Any other (Pls. elaborate)
+        </td>
+        <td>
+            ${data.qc_monitoring_ix || ""}
+            <br>
+            <textarea>${data.qc_monitoring_ix_remarks || ""}</textarea>
+        </td>
+    </tr>
+    </tbody>
         </table>
+
+        <div class="signature-section" style="line-height: 1.8; padding: 10px 0;">
+            <ul style="list-style: none; padding: 0;">
+                <li>
+                    <p>Signature<span class="dotted-field">${
+                      data.signature || ""
+                    }</span></p> 
+                </li>
+                <li>
+                    <p>Name of Proprietor/Partner/ individual Practicing in own name:<span class="dotted-field">${
+                      data.signatory_name || ""
+                    }</span></p> 
+                </li>
+                <li>
+                    <p>Membership No. of the Signatory<span class="dotted-field">${
+                      data.membership_number || ""
+                    }</span></p>
+                </li>
+                <li>
+                    <p>Date: <span>${data.signature_date || ""}</span></p>
+                </li>
+            </ul>
+        </div>
+
        
         <!-- Page NO 33. -->
 

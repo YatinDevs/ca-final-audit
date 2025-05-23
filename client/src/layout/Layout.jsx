@@ -16,7 +16,7 @@ function Layout() {
   return (
     <>
       {!isHomePageLogin && <Header />}
-      <div className="flex h-full  ">
+      <div className="flex h-full min-h-dvh ">
         <div>
           {/* Sidebar */}
           {!isHomePageLogin && <RoleSidebar />}
