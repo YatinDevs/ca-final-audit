@@ -417,12 +417,36 @@
           <div class="signature-section">
             <table width="100%">
               <tr>
-                <td width="50%">
+                <!-- <td width="50%">
                   <p>Place: <input type="text" name="place" style="width: 70%;"></p>
-                </td>
-                <td width="50%" style="text-align: right;">
-                  <p>Signature of the Proprietor/Partner</p>
-                </td>
+                </td> -->
+                <td width="50%" style="text-align: left;">
+  <p>Signature of the Proprietor/Partner</p>
+  <label for="signatureUpload" style="
+    display: inline-block;
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  ">
+    Choose Signature File
+  </label>
+  <input 
+    type="file" 
+    id="signatureUpload" 
+    accept="image/*" 
+    style="display: none;"
+    onchange="document.getElementById('fileName').textContent = this.files[0]?.name || 'No file chosen'"
+  >
+  <span id="fileName" style="margin-left: 10px; color: #666; font-size: 12px;">No file chosen</span>
+  
+  <div id="signaturePreview" style="margin-top: 10px; max-width: 200px; display: none;">
+    <p>Signature Preview:</p>
+    <img id="previewImage" style="max-width: 100%; border: 1px dashed #ddd; padding: 5px;"/>
+  </div>
+</td>
               </tr>
               <tr>
                 <td>
@@ -1329,7 +1353,7 @@
     </style>
             <!-- Section 17: Concentration -->
             <div class="section-title">
-                17. Concentration: Furnish details where professional fees from any client exceed 15% of the PU's total gross receipts:
+                17. Concentration: Furnish details where professional fees from any client exceed 15% of the PU's total gross receipt:
             </div>
             
             <table class="concentration-table">
@@ -3128,44 +3152,34 @@
               <tr>
                 <td></td>
                 <td>
-                  <table>
-                    <tr>
-                      <td><strong>Yr. of Review</strong></td>
-                      <td><strong>Name of entity</strong></td>
-                      <td><strong>Broad description of deficiencies</strong></td>
-                      <td><strong>Dt. Of Submission of compliance report</strong></td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" name="review_details[0][year]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[0][entity_name]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[0][deficiencies]" style="width: 100%;"></td>
-                      <td><input type="date" name="review_details[0][compliance_date]" style="width: 100%;"></td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" name="review_details[1][year]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[1][entity_name]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[1][deficiencies]" style="width: 100%;"></td>
-                      <td><input type="date" name="review_details[1][compliance_date]" style="width: 100%;"></td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" name="review_details[2][year]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[2][entity_name]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[2][deficiencies]" style="width: 100%;"></td>
-                      <td><input type="date" name="review_details[2][compliance_date]" style="width: 100%;"></td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" name="review_details[3][year]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[3][entity_name]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[3][deficiencies]" style="width: 100%;"></td>
-                      <td><input type="date" name="review_details[3][compliance_date]" style="width: 100%;"></td>
-                    </tr>
-                    <tr>
-                      <td><input type="text" name="review_details[4][year]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[4][entity_name]" style="width: 100%;"></td>
-                      <td><input type="text" name="review_details[4][deficiencies]" style="width: 100%;"></td>
-                      <td><input type="date" name="review_details[4][compliance_date]" style="width: 100%;"></td>
-                    </tr>
-                  </table>
+                  <table id="reviewTable" style="width:100%; border:1px solid #000; border-collapse:collapse;">
+  <thead>
+    <tr>
+      <th style="width:15%; border:1px solid #000; padding:8px; background:#f2f2f2;">Yr. of Review</th>
+      <th style="width:25%; border:1px solid #000; padding:8px; background:#f2f2f2;">Name of entity</th>
+      <th style="width:40%; border:1px solid #000; padding:8px; background:#f2f2f2;">Broad description of deficiencies</th>
+      <th style="width:20%; border:1px solid #000; padding:8px; background:#f2f2f2;">Dt. Of Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Row 1 -->
+    <tr>
+      <td style="border:1px solid #000; padding:5px;">
+        <input type="text" name="review_details[0][year]" style="width:100%; border:none; padding:5px;">
+      </td>
+      <td style="border:1px solid #000; padding:5px;">
+        <input type="text" name="review_details[0][entity_name]" style="width:100%; border:none; padding:5px;">
+      </td>
+      <td style="border:1px solid #000; padding:5px;">
+        <input type="text" name="review_details[0][deficiencies]" style="width:100%; border:none; padding:5px;">
+      </td>
+      <td style="border:1px solid #000; padding:5px;">
+        <input type="date" name="review_details[0][compliance_date]" style="width:100%; border:none; padding:5px;">
+      </td>
+    </tr>
+    <!-- Add more rows as needed (1-4) -->
+  </tbody>
+</table>
                 </td>
               </tr>
               <tr>
@@ -3471,13 +3485,13 @@
                 Is the engagement letter signed by the client?
             </td>
             <td style="width: 19.6327%;" class="remarks-col">
-                <select name="letter_signed" class="yes-no-na-dropdown">
+                <select name="engagement_letter_signed" class="yes-no-na-dropdown">
                     <option value="">-- Select --</option>
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
                     <option value="NA">NA</option>
                 </select>
-                <input type="text" name="letter_signed_remark" class="remark-input" placeholder="Remarks...">
+                <input type="text" name="signed_letter_remarks" class="remark-input" placeholder="Remarks...">
             </td>
         </tr>
         <tr>
@@ -3486,13 +3500,13 @@
                 Has the PU withdrawn from an engagement and/or from client relationship during the period of review?
             </td>
             <td style="width: 19.6327%;" class="remarks-col">
-                <select name="withdrawn_engagement" class="yes-no-na-dropdown">
+                <select name="withdrawal_documented" class="yes-no-na-dropdown">
                     <option value="">-- Select --</option>
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
                     <option value="NA">NA</option>
                 </select>
-                <input type="text" name="withdrawn_engagement_remark" class="remark-input" placeholder="Remarks...">
+                <input type="text" name="documentation_remarks" class="remark-input" placeholder="Remarks...">
             </td>
         </tr>
         <tr>
@@ -3505,7 +3519,7 @@
                 If yes, has the reason for withdrawal been documented
             </td>
             <td style="width: 19.6327%;" class="remarks-col">
-                <select name="withdrawal_documented" class="yes-no-na-dropdown">
+                <select name="withdrawal_details" class="yes-no-na-dropdown">
                     <option value="">-- Select --</option>
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
@@ -3560,13 +3574,13 @@
                 Did the PU face any issues relating to acceptance or continuance of client relationships and specific engagements during the period of review?
             </td>
             <td style="width: 19.6327%;" class="remarks-col">
-                <select name="issues_faced" class="yes-no-na-dropdown">
+                <select name="client_issues" class="yes-no-na-dropdown">
                     <option value="">-- Select --</option>
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
                     <option value="NA">NA</option>
                 </select>
-                <input type="text" name="issues_faced_remark" class="remark-input" placeholder="Remarks...">
+                <input type="text" name="client_issues_remarks" class="remark-input" placeholder="Remarks...">
             </td>
         </tr>
         <tr>
@@ -3579,7 +3593,7 @@
                 If yes, how was it resolved? 
             </td>
             <td style="width: 19.6327;">
-                <input type="text" name="resolution_method" class="text-input">
+                <input type="text" name="resolution_details" class="text-input">
             </td>
         </tr>
         <tr>
@@ -3592,7 +3606,7 @@
                 Who has the custody of such documents?
             </td>
             <td style="width: 19.6327;">
-                <input type="text" name="document_custodian" class="text-input">
+                <input type="text" name="custody_details" class="text-input">
             </td>
         </tr>
     </tbody>
@@ -4165,7 +4179,7 @@
                 <td style="text-align: center;">(ii)</td>
                 <td>How frequently the designated person/ PU evaluate the PUs personnel needs?</td>
                 <td>
-                  <textarea name="personnel_evaluation_freq" style="width: 100%;" placeholder="Remarks"></textarea>
+                  <textarea name="evaluation_freq_remarks" style="width: 100%;" placeholder="Remarks"></textarea>
                 </td>
               </tr>
               <tr>
