@@ -22,10 +22,10 @@ exports.generatePdf = async (req, res) => {
     const options = {
       format: "A4",
       border: {
-        top: "40mm",
-        right: "60mm",
-        bottom: "60mm",
-        left: "20mm",
+        top: "30mm",
+        right: "35mm",
+        bottom: "30mm",
+        left: "35mm",
       },
       type: "pdf",
       timeout: 60000,
@@ -91,7 +91,7 @@ exports.generatePdf = async (req, res) => {
 
 function generatePdfHtml(data) {
   // Format dates for display
-  // Format dates for display
+
   const startDate = data.reviewStartDate
     ? new Date(data.reviewStartDate).toLocaleDateString()
     : "";
@@ -155,7 +155,7 @@ function generatePdfHtml(data) {
       <p>(iii) Is there any exit from the Networking recently: 
         <span>${data.hasExit === "yes" ? "Yes" : "No"}</span>
       </p>
-      <p>Reason for such exit: <span class="dotted-field">${
+      <p>And if Yes, what is the reason for such exit: <span class="dotted-field">${
         data.reasonForExit || ""
       }</span></p>
     </div>
@@ -219,6 +219,30 @@ function generatePdfHtml(data) {
 
     return rows;
   }
+
+  // Page No 19
+  const document = {};
+
+  // This code should run after DOM is fully loaded
+
+  const formData19 = {
+    review_details: Array().map((row, index) => ({
+      //document.querySelectorAll("#reviewTable tbody tr")
+      year: row.querySelector(`input[name="review_details[${index}][year]"]`)
+        .value,
+      entity_name: row.querySelector(
+        `input[name="review_details[${index}][entity_name]"]`
+      ).value,
+      deficiencies: row.querySelector(
+        `input[name="review_details[${index}][deficiencies]"]`
+      ).value,
+      compliance_date: row.querySelector(
+        `input[name="review_details[${index}][compliance_date]"]`
+      ).value,
+    })),
+  };
+
+  console.log(formData19); // Verify the collected data
 
   //Page No 23 to 25
 
@@ -590,7 +614,7 @@ function generatePdfHtml(data) {
             }
             .dotted-field {
                 border-bottom: 1px dotted black;
-                min-width: 200px;
+                min-width: 300px;
                 display: inline-block;
             }
             .dotted-field1 {
@@ -666,7 +690,7 @@ function generatePdfHtml(data) {
             }
             .dotted-field {
                 border-bottom: 1px dotted #000;
-                min-width: 300px;
+                min-width: 200px;
                 display: inline-block;
                 padding-bottom: 2px;
                 margin-left: 5px;
@@ -705,15 +729,15 @@ function generatePdfHtml(data) {
             </p>
             <p><strong>&nbsp;</strong></p>
             <p><strong>The Secretary, Peer Review Board,</strong></p>
-            <p><strong>The Institute of Chartered Accountants of India,&nbsp;</strong></p>
+            <p><strong>The Institute of Chartered Accountants of India,</strong></p>
             <p><strong>ICAI Bhawan,</strong></p>
             <p><strong>Post Box No. 7100,</strong></p>
-            <p><strong>Indraprastha Marg, New Delhi – 110002&nbsp;</strong></p>
-            <p><strong>&nbsp;</strong></p>
+            <p><strong>Indraprastha Marg, New Delhi – 110002</strong></p>
+            <p><strong></strong></p>
             <p class="text-center"><strong>APPLICATION</strong></p>
-            <p class="text-center"><strong>&nbsp;</strong></p>
+            <p class="text-center"><strong></strong></p>
             <p>Dear Sir,</p>
-            <p class="text-center"><strong><s><span style="text-decoration:none;">&nbsp;</span></s></strong></p>
+            <p class="text-center"><strong><s><span style="text-decoration:none;"></span></s></strong></p>
             
             <ol>
                 <li>
@@ -759,10 +783,12 @@ function generatePdfHtml(data) {
                     </ol>
                 </li>
                 
+                <!-- Page 2 -->
+
                 <li>
-    I/We hereby declare that my/our firm has signed reports pertaining 
+    I/We hereby declare that my/our firm has signed reports pertaining to 
     <div class="page-break"></div>
-    to the following assurance services during the period under review:
+    the following assurance services during the period under review:
 </li>
             </ol>
             
@@ -805,7 +831,7 @@ function generatePdfHtml(data) {
                 <tr>
                     <td>7</td>
                     <td>Any other, please specify ${
-                      data.otherService ? "✓" : "☐"
+                      data.otherService ? "✓" : ""
                     }</td>
                     <td>${data.clientType7 || ""}</td>
                 </tr>
@@ -856,22 +882,22 @@ function generatePdfHtml(data) {
                         }
                     </div>
                 </li>
-            </ol>
-            
-            <p style="text-align: center; text-decoration: underline; margin-top: 20px; border-top: 3px solid black; padding-top: 10px; font-weight: bold;">
+                <p style="text-align: center; text-decoration: underline; margin-top: 10px; border-top: 3px solid black; padding-top: 10px; font-weight: bold;">
                 Further Information to be submitted by New Unit
             </p>
-              <li>
-                    8.	Tick the applicable clause or mention N.A. as the case may be:<br> 
-                </li>
+              <tr>
+              <td>8.</td>
+              <td>Tick the applicable clause or mention N.A. as the case may    be:</td>
+            </ol>  
         </div>
         
-        <!-- Page 2 -->
+        <!-- Page 3 -->
         <div class="page-break form-container">
-            <ol>
-                <li>
+            
+                
                     <ul>
-                        <li>
+                    
+                          <td>(i)</td>
                             CA <span class="dotted-field">${
                               data.partnerName1 || ""
                             }</span>, 
@@ -889,9 +915,9 @@ function generatePdfHtml(data) {
                               data.validFrom1 || ""
                             }</span> till <span class="dotted-field2">${
     data.validTill1 || ""
-  }</span>.
-                        </li>
-                        <li>
+  }</span>.  </br>
+                        
+                        <td>(ii)</td>
                             I am/was a partner/proprietor of the firm 
                             <span class="dotted-field">${
                               data.firmName2 || ""
@@ -903,9 +929,9 @@ function generatePdfHtml(data) {
                               data.validFrom2 || ""
                             }</span> till <span class="dotted-field2">${
     data.validTill2 || ""
-  }</span>.
-                        </li>
-                        <li>
+  }</span>. </br>
+                        
+                        <td>(iii)</td>
                             CA <span class="dotted-field">${
                               data.employeeName || ""
                             }</span>, 
@@ -923,9 +949,9 @@ function generatePdfHtml(data) {
                               data.validFrom3 || ""
                             }</span> till <span class="dotted-field2">${
     data.validTill3 || ""
-  }</span>.
-                        </li>
-                        <li>
+  }</span>.  </br>
+                        
+                        <td>(iv)</td>
                             CA <span class="dotted-field">${
                               data.partnerName2 || ""
                             }</span>, 
@@ -936,8 +962,8 @@ function generatePdfHtml(data) {
                               data.firmName4 || ""
                             }</span>, 
                             is an Empanelled Peer Reviewer who has qualified the test organised by the Board.
-                        </li>
-                        <li>
+                        </br>
+                        <td>(v)</td>
                             I, CA <span class="dotted-field">${
                               data.proprietorName || ""
                             }</span>, 
@@ -945,33 +971,29 @@ function generatePdfHtml(data) {
                               data.proprietorNumber || ""
                             }</span>, 
                             am an Empanelled Peer Reviewer who has qualified the test organised by the Board.
-                        </li>
+                        
                     </ul>
                     
                     
                     <div style="clear: both;"></div>
-                </li>
-
-                <li>
-                    <p>Policies, procedures, and infrastructure of my firm are in conformity with the Standards on Quality Control (SQC-1).</p>
-
-                      <table class="yes-no-table" style="width: 50px; border: 1px solid #000; border-collapse: collapse; margin: 10px 0;">
+                    
+                </li>        
+                    <p>9. Policies, procedures, and infrastructure of my firm are in conformity with the Standards on Quality Control i.e. SQC-1:
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                           <tbody>
                               <tr>
-                                  <td style="border: 1px solid #000; padding: 5px; text-align: center;">☑ YES</td>
+                                  <td style="border: 1px solid #000; ">YES</td>
                               </tr>
                               <tr>
-                                  <td style="border: 1px solid #000; padding: 5px; text-align: center;">□ NO</td>
+                                  <td style="border: 1px solid #000;">NO</td>
                               </tr>
                           </tbody>
-                      </table>
-                    
-                </li>
-
-                <li>
-                    <p>I wish to undertake audit of listed entity and further declare that: (Fill as applicable or else mention N.A.)</p>
+                          &nbsp&nbsp
+                           and
+                    </p>
+                    <p>10. I wish to undertake audit of listed entity and further declare that: (Fill as applicable or else mention N.A.)</p>
                     <ul>
-                        <li>
+                        <td>(i)</td>
                             CA <span class="dotted-field">${
                               data.listedPartnerName || ""
                             }</span>, 
@@ -979,8 +1001,8 @@ function generatePdfHtml(data) {
                               data.listedPartnerNumber || ""
                             }</span>], 
                             partner of my firm has carried out audit of Listed company in last three years.
-                        </li>
-                        <li>
+                        </br>
+                        <td>(ii)</td>
                             I, CA <span class="dotted-field">${
                               data.listedProprietorName || ""
                             }</span>, 
@@ -988,12 +1010,15 @@ function generatePdfHtml(data) {
                               data.listedProprietorNumber || ""
                             }</span> 
                             (in case of proprietorship firm) have carried out audit of Listed company in last three years.
-                        </li>
+                        
                     </ul>
                 </li>
 
-                <li>
-                    <p>The Practice Unit nominates its Partner CA <span class="dotted-field">${
+                
+                <p style="text-align: center; text-decoration: underline; margin-top: 10px; border-top: 2px solid black; padding-top: 10px; font-weight: bold;">
+                <div>
+                
+                    <p>11. The Practice Unit nominates its Partner CA <span class="dotted-field">${
                       data.nominatedPartnerName || ""
                     }</span> for Peer Review process. 
                     His Mobile No. is <span class="dotted-field1">${
@@ -1002,15 +1027,17 @@ function generatePdfHtml(data) {
                     and E-MAIL id is <span class="dotted-field">${
                       data.nominatedPartnerEmail || ""
                     }</span>.</p>
-                </li>
+                </div>
 
-                <li>
-                    <p>Annexure: Questionnaire</p>
+                
+                    <p>12. Annexure: Questionnaire</p>
+                    <p>• I hereby Declare that the details furnished above are true and correct</p>
                 </li>
-            </ol>
+            
 
             <div class="declaration-section">
-                <p>• I hereby Declare that the details furnished above are true and correct</p>
+                
+            <!-- Page No 4 -->
 
                 <p class="page-break"> as borne out by the facts to the best of my knowledge and belief.</p>
 
@@ -1022,32 +1049,34 @@ function generatePdfHtml(data) {
                     <div class="signature-section" style="line-height: 1.8; padding: 10px 0;">
             <ul style="list-style: none; padding: 0;">
                 <li>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span><strong>Signature <br><br>Name of the Proprietor/Partner</strong></span><br>
+                        <span><strong>individual Practicing in own name: <br/></strong> <span class="dotted-field1">${
+                          data.signatoryName || ""
+                        }</span></span>
+                    </div>
+                </li>
+                <!-- <li>
                     <strong>Place:</strong> <span class="dotted-field1">${
                       data.place || ""
+                    }</span>
+                </li> -->
+                <li>
+                    <strong>Membership No. of the Signatory <br/></strong> <span class="dotted-field1">${
+                      data.signatoryMemberNumber || ""
                     }</span>
                 </li>
                 <li>
                     <strong>Date:</strong> <span class="dotted-field1">${declarationDate}</span>
                 </li>
-                <li>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span><strong>Signature of the Proprietor/Partner</strong></span>
-                        <span><strong>Name:</strong> <span class="dotted-field1">${
-                          data.signatoryName || ""
-                        }</span></span>
-                    </div>
-                </li>
-                <li>
-                    <strong>Membership No.:</strong> <span class="dotted-field1">${
-                      data.signatoryMemberNumber || ""
-                    }</span>
-                </li>
+                
+                
             </ul>
         </div>
         <body>
         
 
-        // Page No 5
+        <!-- Page No 5 -->
         <div class="container page-break">
             <h1>Annexure</h1>
             <h1>QUESTIONNAIRE</h1>
@@ -1058,7 +1087,7 @@ function generatePdfHtml(data) {
     <label>1. Name of the Practice Unit:</label>
     <span style="display: block; border: 1px solid #000; padding: 0.5em; margin-top: 0.5em; min-height: 2.5em; width: 100%;">
         ${data.practiceUnitName || ""}
-    </span>
+    </span> 
 </div>
 
                 
@@ -1066,17 +1095,12 @@ function generatePdfHtml(data) {
     <label>2. Peer Review of:</label>
     <span style="display: flex; gap: 1em; margin-top: 0.5em;">
         <label>
-            <input type="checkbox" ${
-              data.reviewType === "HO" ? "checked" : ""
-            } disabled />
-            HO
-        </label>
-        <label>
-            <input type="checkbox" ${
-              data.reviewType === "Branch" ? "checked" : ""
-            } disabled />
-            Branch
-        </label>
+    HO: ${data.reviewType === "HO" ? "Yes" : "No"}
+</label>
+<label style="margin-left: 15px;">
+    Branch: ${data.reviewType === "Branch" ? "Yes" : "No"}
+</label>
+  
         
     </span>
 </div>
@@ -1090,33 +1114,55 @@ function generatePdfHtml(data) {
                 <div class="form-group">
                     <label>4. Email ID of PU:</label>
                     <span class="dotted-field">${data.email || ""}</span>
+                    <label>Website of PU:</label>
+                    <span class="">${data.website || ""}</span>
                 </div>
                 
                 <div class="form-group">
-                    <label>Website of PU:</label>
-                    <span class="dotted-field">${data.website || ""}</span>
+                    
                 </div>
                 
                 <div class="form-group">
                     <label>5. Status:</label>
-                    <p>
-                        <span class="checkbox">${
-                          statusChecks.partnership
-                        }</span> Partnership &nbsp;
-                        <span class="checkbox">${
-                          statusChecks.proprietorship
-                        }</span> Proprietorship &nbsp;
-                        <span class="checkbox">${
-                          statusChecks.llp
-                        }</span> Limited Liability Partnership &nbsp;
-                        <span class="checkbox">${
-                          statusChecks.individual
-                        }</span> Practicing in individual name
-                    </p>
+                    <table>
+                      <tr>
+                          <td>Partnership</td>
+                          <td><span class="checkbox">${
+                            statusChecks.partnership
+                          }</span></td>
+                          
+                          <td>Proprietorship</td>
+                          <td><span class="checkbox">${
+                            statusChecks.proprietorship
+                          }</span></td>
+                      </tr>
+                      <tr>
+                          <td>Limited Liability Partnership</td>
+                          <td><span class="checkbox">${
+                            statusChecks.llp
+                          }</span></td>
+                          
+                          <td>Practicing in individual name</td>
+                          <td><span class="checkbox">${
+                            statusChecks.individual
+                          }</span></td>
+                      </tr>
+                  </table>
                 </div>
                 
                 <div class="form-group">
-                    <label>6. Date of establishment of the PU:</label>
+                    <label>6. Date of establishment of the PU:  </label>
+                  <tr>
+                      <td>
+                          <div style="margin-left:200px; margin-top:-20px;">
+                              <!-- Day -->
+                              <input type="text" maxlength="2" size="2" style="text-align:              center;" placeholder="DD">
+                              <input type="text" maxlength="2" size="2" style="text-align:              center;" placeholder="MM">
+                              <input type="text" maxlength="4" size="4" style="text-align:              center;" placeholder="YYYY">
+                          </div>
+                      </td>
+                  </tr>
+
                     <span class="dotted-field">${establishmentDate}</span>
                 </div>
                 
@@ -1129,7 +1175,7 @@ function generatePdfHtml(data) {
                 </div>
                 
                  <div class="form-group">
-                <label>8. Is there any networking firm?</label>
+                <label>8. Is there any networking firm and if yes, please provide</label>
                 <span>${data.hasNetworking === "yes" ? "Yes" : "No"}</span>
                 ${networkingDetails}
             </div>
@@ -1146,12 +1192,12 @@ function generatePdfHtml(data) {
                  <label>10. Contact person of PU for Peer Review (along with Mobile No. and Email id):</label>
                 <div class="dotted-field">
               <p style="white-space: pre-wrap; margin: 0;">${
-                data.contactPerson || ""
-              }</p>
+                data.contact_name || ""
+              } ${data.contact_mobile || ""} ${data.contact_email || ""}</p>
                 </div>
             </div>
       </div>
-        </div>
+        </div> 
 
         <div class="form-container page-break">
             <!-- Section 11 -->
@@ -1159,54 +1205,101 @@ function generatePdfHtml(data) {
                 11. Particulars about the constitution of the PU <strong>during the period under review</strong> (as per <strong>Form 18</strong> filled with the ICAI). Is there assurance service like Statutory audit, tax audit, Taxation etc. headed by different partners, if yes details to be provided in the below table:
             </div>
             
-            <table class="partner-table">
-                <tbody>
-                    <tr>
-                        <td rowspan="2" style="width: 5.8%;">Name of sole-practitioner/ sole-proprietor/ partner</td>
-                        <td rowspan="2" style="width: 15.5%;">Membership no. of sole-practitioner/ sole-proprietor/ partner</td>
-                        <td rowspan="2" style="width: 14.56%;">Association with Practice unit (in years)</td>
-                        <td rowspan="2" style="width: 15.68%;">Any Post Qualification or Certificate course pursued within or outside ICAI.</td>
-                        <td rowspan="2" style="width: 15.62%;">Professional experience in practice</td>
-                        <td rowspan="2" style="width: 16%;">Predominant function (e.g. audit, tax, consulting)</td>
-                        <td colspan="2" style="width: 16.82%;">Details of Changes</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 8.62%;">Joined (Year)</td>
-                        <td style="width: 8.2%;">Left (Year)</td>
-                    </tr>
-                    <tr>
-                        <td>${data.partner1_name || ""}</td>
-                        <td>${data.partner1_membership || ""}</td>
-                        <td>${data.partner1_association || ""}</td>
-                        <td>${data.partner1_qualification || ""}</td>
-                        <td>${data.partner1_experience || ""}</td>
-                        <td>${data.partner1_function || ""}</td>
-                        <td>${data.partner1_joined || ""}</td>
-                        <td>${data.partner1_left || ""}</td>
-                    </tr>
-                    <tr>
-                        <td>${data.partner2_name || ""}</td>
-                        <td>${data.partner2_membership || ""}</td>
-                        <td>${data.partner2_association || ""}</td>
-                        <td>${data.partner2_qualification || ""}</td>
-                        <td>${data.partner2_experience || ""}</td>
-                        <td>${data.partner2_function || ""}</td>
-                        <td>${data.partner2_joined || ""}</td>
-                        <td>${data.partner2_left || ""}</td>
-                    </tr>
-                    <tr>
-                        <td>${data.partner3_name || ""}</td>
-                        <td>${data.partner3_membership || ""}</td>
-                        <td>${data.partner3_association || ""}</td>
-                        <td>${data.partner3_qualification || ""}</td>
-                        <td>${data.partner3_experience || ""}</td>
-                        <td>${data.partner3_function || ""}</td>
-                        <td>${data.partner3_joined || ""}</td>
-                        <td>${data.partner3_left || ""}</td>
-                    </tr>
-                </tbody>
-            </table>
-            
+            <table class="partner-table" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 10px;">
+    <tbody>
+        <tr>
+            <td rowspan="2" style="width: 12%; border: 1px solid #000; padding: 3px;">Name of sole-practitioner/<br>sole-proprietor/ partner</td>
+            <td rowspan="2" style="width: 14%; border: 1px solid #000; padding: 3px;">Membership no. of sole-<br>practitioner/<br>sole-proprietor/<br>partner</td>
+            <td rowspan="2" style="width: 14%; border: 1px solid #000; padding: 3px;">Association with Practice <br> unit <br> (in years)</td>
+            <td rowspan="2" style="width: 14%; border: 1px solid #000; padding: 3px;">Any Post<br> Qualification <br>or<br> Certificate<br> course<br> pursued within or <br> outside ICAI</td>
+            <td rowspan="2" style="width: 14%; border: 1px solid #000; padding: 3px;">Professional experience in practice</td>
+            <td rowspan="2" style="width: 14%; border: 1px solid #000; padding: 3px;">Predominant function (e.g. audit, tax, consulting)</td>
+            <td colspan="2" style="width: 14%; border: 1px solid #000; padding: 3px; text-align: center;">Details of Changes</td>
+        </tr>
+        <tr>
+            <td style="width: 12%; border: 1px solid #000; padding: 3px;">Joined (Year)</td>
+            <td style="width: 12%; border: 1px solid #000; padding: 3px;">Left (Year)</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_name || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_membership || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_association || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_qualification || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_experience || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_function || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_joined || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner1_left || ""
+            }</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_name || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_membership || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_association || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_qualification || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_experience || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_function || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_joined || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner2_left || ""
+            }</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_name || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_membership || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_association || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_qualification || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_experience || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_function || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_joined || ""
+            }</td>
+            <td style="border: 1px solid #000; padding: 10px;">${
+              data.partner3_left || ""
+            }</td>
+        </tr>
+    </tbody>
+</table>
             <!-- Section 12 -->
             <div class="section-title">
                 12. Particulars of Chartered Accountants Employed / Paid Assistant or Consultants as on ${
@@ -1224,22 +1317,28 @@ function generatePdfHtml(data) {
                             <td style="width: 70.95pt;">Experience (in years)</td>
                         </tr>
                         <tr>
-                            <td>${data.ca1_name || ""}</td>
-                            <td>${data.ca1_membership || ""}</td>
-                            <td>${data.ca1_association || ""}</td>
-                            <td>${data.ca1_experience || ""}</td>
+                            <td style="padding: 10px;">${
+                              data.ca1_name || ""
+                            }</td>
+                            <td >${data.ca1_membership || ""}</td>
+                            <td >${data.ca1_association || ""}</td>
+                            <td >${data.ca1_experience || ""}</td>
                         </tr>
                         <tr>
-                            <td>${data.ca2_name || ""}</td>
-                            <td>${data.ca2_membership || ""}</td>
-                            <td>${data.ca2_association || ""}</td>
-                            <td>${data.ca2_experience || ""}</td>
+                            <td style="padding: 10px;">${
+                              data.ca2_name || ""
+                            }</td>
+                            <td >${data.ca2_membership || ""}</td>
+                            <td >${data.ca2_association || ""}</td>
+                            <td >${data.ca2_experience || ""}</td>
                         </tr>
                         <tr>
-                            <td>${data.ca3_name || ""}</td>
-                            <td>${data.ca3_membership || ""}</td>
-                            <td>${data.ca3_association || ""}</td>
-                            <td>${data.ca3_experience || ""}</td>
+                            <td style="padding: 10px;" >${
+                              data.ca3_name || ""
+                            }</td>
+                            <td >${data.ca3_membership || ""}</td>
+                            <td >${data.ca3_association || ""}</td>
+                            <td >${data.ca3_experience || ""}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1349,21 +1448,21 @@ function generatePdfHtml(data) {
                         <td style="width: 18.6%;">Branch 3</td>
                     </tr>
                     <tr>
-                        <td>${data.fy1_year || ""}</td>
+                        <td style="padding: 10px;">${data.fy1_year || ""}</td>
                         <td>${data.fy1_ho || ""}</td>
                         <td>${data.fy1_branch1 || ""}</td>
                         <td>${data.fy1_branch2 || ""}</td>
                         <td>${data.fy1_branch3 || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.fy2_year || ""}</td>
+                        <td style="padding: 10px;">${data.fy2_year || ""}</td>
                         <td>${data.fy2_ho || ""}</td>
                         <td>${data.fy2_branch1 || ""}</td>
                         <td>${data.fy2_branch2 || ""}</td>
                         <td>${data.fy2_branch3 || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.fy3_year || ""}</td>
+                        <td style="padding: 10px;">${data.fy3_year || ""}</td>
                         <td>${data.fy3_ho || ""}</td>
                         <td>${data.fy3_branch1 || ""}</td>
                         <td>${data.fy3_branch2 || ""}</td>
@@ -1390,21 +1489,27 @@ function generatePdfHtml(data) {
                         <td style="width: 18.6%;">Branch 3</td>
                     </tr>
                     <tr>
-                        <td>${data.total_fy1_year || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.total_fy1_year || ""
+                        }</td>
                         <td>${data.total_fy1_ho || ""}</td>
                         <td>${data.total_fy1_branch1 || ""}</td>
                         <td>${data.total_fy1_branch2 || ""}</td>
                         <td>${data.total_fy1_branch3 || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.total_fy2_year || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.total_fy2_year || ""
+                        }</td>
                         <td>${data.total_fy2_ho || ""}</td>
                         <td>${data.total_fy2_branch1 || ""}</td>
                         <td>${data.total_fy2_branch2 || ""}</td>
                         <td>${data.total_fy2_branch3 || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.total_fy3_year || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.total_fy3_year || ""
+                        }</td>
                         <td>${data.total_fy3_ho || ""}</td>
                         <td>${data.total_fy3_branch1 || ""}</td>
                         <td>${data.total_fy3_branch2 || ""}</td>
@@ -1429,19 +1534,25 @@ function generatePdfHtml(data) {
                         <td style="width: 25.02%;">Financial Year</td>
                     </tr>
                     <tr>
-                        <td>${data.client1_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.client1_name || ""
+                        }</td>
                         <td>${data.client1_type || ""}</td>
                         <td>${data.client1_percentage || ""}</td>
                         <td>${data.client1_year || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.client2_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.client2_name || ""
+                        }</td>
                         <td>${data.client2_type || ""}</td>
                         <td>${data.client2_percentage || ""}</td>
                         <td>${data.client2_year || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.client3_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.client3_name || ""
+                        }</td>
                         <td>${data.client3_type || ""}</td>
                         <td>${data.client3_percentage || ""}</td>
                         <td>${data.client3_year || ""}</td>
@@ -1493,19 +1604,25 @@ function generatePdfHtml(data) {
                         <td style="width: 25.02%;">Whether found guilty YES/NO</td>
                     </tr>
                     <tr>
-                        <td>${data.disciplinary1_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.disciplinary1_name || ""
+                        }</td>
                         <td>${data.disciplinary1_membership || ""}</td>
                         <td>${data.disciplinary1_case || ""}</td>
                         <td>${data.disciplinary1_guilty || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.disciplinary2_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.disciplinary2_name || ""
+                        }</td>
                         <td>${data.disciplinary2_membership || ""}</td>
                         <td>${data.disciplinary2_case || ""}</td>
                         <td>${data.disciplinary2_guilty || ""}</td>
                     </tr>
                     <tr>
-                        <td>${data.disciplinary3_name || ""}</td>
+                        <td style="padding: 10px;">${
+                          data.disciplinary3_name || ""
+                        }</td>
                         <td>${data.disciplinary3_membership || ""}</td>
                         <td>${data.disciplinary3_case || ""}</td>
                         <td>${data.disciplinary3_guilty || ""}</td>
@@ -1538,12 +1655,12 @@ function generatePdfHtml(data) {
                 <tr>
                     <th style="width:6.4%">Sr. No.</th>
                     <th style="width:10.7%">Category of Client<br>(Name or code of client)</th>
-                    <th style="width:7.72%">Name of Branch/HO of PU</th>
+                    <th style="width:7.52%">Name of Branch/HO of PU</th>
                     <th style="width:7.52%">Name of Signing Partner</th>
                     <th colspan="3" style="width:26.94%">Type of Engagement*</th>
-                    <th style="width:13.82%">Whether Engagement Quality review done?</th>
+                    <th style="width:13%">Whether Engagement Quality review done?</th>
                     <th style="width:8.42%">Turn over Rs. Lakhs</th>
-                    <th style="width:10.86%">Borrowing Rs. Lakhs</th>
+                    <th style="width:6.12%">Borrowing Rs. Lakhs</th>
                     <th style="width:7.62%">Net worth Rs. Lakhs</th>
                 </tr>
                 <tr>
@@ -1803,6 +1920,7 @@ function generatePdfHtml(data) {
                     <td>${formatCell(data.categoryF1_borrowing)}</td>
                     <td>${formatCell(data.categoryF1_networth)}</td>
                 </tr>
+                
                 <tr>
                     <td>F2</td>
                     <td>${formatCell(data.categoryF2_client)}</td>
@@ -1898,12 +2016,13 @@ function generatePdfHtml(data) {
             <p style="margin-left: 27.0pt; text-indent: -27.05pt;">
                 Note: Type of assurance service engagements include Central Statutory Audit, Statutory Audit, Tax Audit, GST Audit, Internal Audit, Certification work but does not include:
             </p>
-            <ol style="list-style-type: lower-roman; margin-left: 44.4px;">
-                <li>Management consultancy Engagements;</li>
-                <li>Representation before various authorities;</li>
-                <li>Engagements to prepare tax return or advising clients in taxation matter;</li>
-                <li>Engagements for the compilation of financial statement;</li>
-            </ol>
+            <div style="display-none">
+                <p>(i)&nbsp&nbsp Management consultancy Engagements;</p>
+                <p>(ii)&nbsp&nbsp Representation before various authorities;</p>
+                <p>(iii)&nbsp&nbsp Engagements to prepare tax return or advising clients in taxation matter;</p>
+                <p>(iv)&nbsp&nbsp Engagements for the compilation of financial statement;</p>
+            </div>
+            
 
             <!-- Form 1 Page No 1 to 10 End -->
 
@@ -1911,12 +2030,12 @@ function generatePdfHtml(data) {
                 <!-- Page 11 -->
         <div class="form-container page-break">
             <div class="note-section">
-                <ol class="lower-roman">
-                    <li>Engagements solely to assist the client in preparing, compiling or collating information other than financial statement;</li>
-                    <li>Testifying as an expert witness;</li>
-                    <li>Providing expert opinion on points of principle, such as Accounting Standards or the applicability of certain loss on basis off acts provide by the client; and</li>
-                    <li>Engagements for due diligence.</li>
-                </ol>
+                <div >
+                    <p>(i)&nbsp&nbsp Engagements solely to assist the client in preparing, compiling or collating information other than financial statement;</p>
+                    <p>(ii)&nbsp&nbsp Testifying as an expert witness;</p>
+                    <p>(iii)&nbsp&nbsp Providing expert opinion on points of principle, such as Accounting Standards or the applicability of certain loss on basis off acts provide by the client; and</p>
+                    <p>(iv)&nbsp&nbsp Engagements for due diligence.</p>
+                </div>
             </div>
 
             <!-- Page 12 -->
@@ -2663,26 +2782,51 @@ function generatePdfHtml(data) {
               <tr>
               <td></td>
               <td>
-                <table class="nested-table">
-                  <tr>
-                    <td><strong>Yr. of Review</strong></td>
-                    <td><strong>Name of entity</strong></td>
-                    <td><strong>Broad description of deficiencies</strong></td>
-                    <td><strong>Dt. Of Submission of compliance report (where ever reqd.)</strong></td>
-                  </tr>
-                  ${(data.review_details || [])
-                    .map(
-                      (detail) => `
-                    <tr>
-                      <td>${detail.year || ""}</td>
-                      <td>${detail.entity_name || ""}</td>
-                      <td>${detail.deficiencies || ""}</td>
-                      <td>${detail.compliance_date || ""}</td>
-                    </tr>
-                  `
-                    )
-                    .join("")}
-                </table>
+                <table style="width:100%; border:1px solid #000; border-collapse:collapse;">
+  <thead>
+    <tr>
+      <th style="width:15%; border:1px solid #000; padding:8px; background:#f2f2f2;">Yr. of Review</th>
+      <th style="width:25%; border:1px solid #000; padding:8px; background:#f2f2f2;">Name of entity</th>
+      <th style="width:40%; border:1px solid #000; padding:8px; background:#f2f2f2;">Broad description of deficiencies</th>
+      <th style="width:20%; border:1px solid #000; padding:8px; background:#f2f2f2;">Dt. Of Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${
+      data.review_details && data.review_details.length > 0
+        ? data.review_details
+            .map(
+              (detail, index) => `
+        <tr>
+          <td style="border:1px solid #000; padding:6px;">${
+            detail.year || "-"
+          }</td>
+          <td style="border:1px solid #000; padding:6px;">${
+            detail.entity_name || "-"
+          }</td>
+          <td style="border:1px solid #000; padding:6px;">${
+            detail.deficiencies || "-"
+          }</td>
+          <td style="border:1px solid #000; padding:6px;">
+            ${
+              detail.compliance_date
+                ? new Date(detail.compliance_date).toLocaleDateString()
+                : "-"
+            }
+          </td>
+        </tr>
+      `
+            )
+            .join("")
+        : `
+      <tr>
+        <td colspan="4" style="border:1px solid #000; padding:10px; text-align:center;">No data available</td>
+      </tr>
+      `
+    }
+  </tbody>
+</table>
+
               </td>
               <td></td>
             </tr>
@@ -2819,36 +2963,36 @@ function generatePdfHtml(data) {
             <tr>
             <td style="text-align: center;">(i)</td>
             <td>Evaluating whether the firm has sufficient personnel with necessary capabilities and competence</td>
-            <td>${data.firm_personnel_sufficiency}
-            <textarea>${data.firm_personnel_remarks}</textarea>
+            <td>${data.sufficient_personnel}
+            <textarea>${data.sufficient_personnel_remark}</textarea>
             </td>
           </tr>
           <tr>
             <td style="text-align: center;">(ii)</td>
             <td>Specialists in terms of specific industry experience or certain skill sets are available, if needed</td>
-            <td>${data.specialists_availability}
-            <textarea>${data.specialists_remarks}</textarea>
+            <td>${data.specialists_available}
+            <textarea>${data.specialists_available_remark}</textarea>
             </td>
           </tr>
           <tr>
             <td style="text-align: center;">(iii)</td>
             <td>Individuals meeting the criteria and eligibility requirements to perform an engagement QC review are available, when needed, whether internally or externally</td>
-            <td>${data.qc_review_availability}
-            <textarea>${data.qc_review_remarks}</textarea>
+            <td>${data.qc_review_available}
+            <textarea>${data.qc_review_available_remark}</textarea>
             </td>
           </tr>
           <tr>
             <td style="text-align: center;">(iv)</td>
             <td>Assessment that the firm would be able to complete the engagement within agreed deadline</td>
             <td>${data.deadline_assessment}
-            <textarea>${data.deadline_remarks}</textarea>
+            <textarea>${data.deadline_assessment_remark}</textarea>
             </td>
           </tr>
           <tr>
             <td style="text-align: center;">5.(i)</td>
             <td>Does the PU prepare engagement letter documenting the understanding with the client?</td>
-            <td>${data.engagement_letter_prepared}
-            <textarea>${data.engagement_letter_remarks}</textarea>
+            <td>${data.engagement_letter}
+            <textarea>${data.engagement_letter_remark}</textarea>
             </td>
           </tr>
           <tr>
